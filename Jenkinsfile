@@ -28,10 +28,17 @@ pipeline{
         }
          stage ('Create Docker Image ') {
             steps {
-                echo ' This Stage Will Compile , test , package  my application'
-                sh 'docker build -t keogin222000/Health care:1.0 . '
+                echo ' This Stage Will create docker Image'
+                sh 'docker build -t keogin/Health care:1.0 . '
                  // Docker Image steps here
                       }
              }
+        stage ('Login to Dockerhub ') {
+            steps {
+                echo ' This Stage Willlogin to Dockerhub'
+        withCredentials([usernamePassword(credentialsId: 'Dockerlogin', passwordVariable: 'docker-pass', usernameVariable: 'docker-login')]) {
+    // some block
+}
+        
     }
 }
