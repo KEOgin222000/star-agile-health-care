@@ -26,5 +26,12 @@ pipeline{
                 // Test steps here
             }
         }
+         stage ('Create Docker Image ') {
+            steps {
+                echo ' This Stage Will Compile , test , package  my application'
+                sh 'docker build -t keogin222000/Health care=apps:1.0 . '
+                 // Docker Image steps here
+                      }
+             }
     }
 }
