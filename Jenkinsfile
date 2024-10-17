@@ -1,42 +1,27 @@
 pipeline{
     agent any
+      tools {
+           maven 'M2_HOME'
+      }
     stages{
-        stage('checkout the code from github'){
+        stage('git checkout'){
             steps{
-                 git url: 'https://github.com/KEOgin222000/star-agile-health-care/'
-                 echo 'github url checkout'
-            }
-        }
-        stage('codecompile with keogin'){
-            steps{
-                echo 'starting compiling'
-                sh 'mvn compile'
-            }
-        }
-        stage('codetesting with keogin'){
-            steps{
-                sh 'mvn test'
-            }
-        }
-        stage('qa with keogin'){
-            steps{
-                sh 'mvn checkstyle:checkstyle'
-            }
-        }
-        stage('package with keogin'){
-            steps{
+                echo 'This Stage is to Clone the repo form github'
+                 git branch: 'master' , url: 'https://github.com/KEOgin222000/star-agile-health-care/'
+                             }
+             }
+        
+        stage ('Create Package') {
+            Steps {
+                echo ' This Stage Will Compile , test , package  my application'
                 sh 'mvn package'
+                      }
+          }
+        stage ('Generate Test Report') {
+            steps { 
+                echo 'This stage generate test report using TestNG'
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/Health care/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
             }
         }
-        stage('run dockerfile'){
-          steps{
-               sh 'docker build -t myimg1 .'
-           }
-         }
-        stage('port expose'){
-            steps{
-                sh 'docker run -dt -p 8082:8082 --name c001 myimg1'
-            }
-        }   
     }
 }
