@@ -8,15 +8,15 @@ pipeline{
             steps {
                 echo 'This Stage is to Clone the repo form github'
                  git branch: 'master' , url: 'https://github.com/KEOgin222000/star-agile-health-care/'
-                // Other build steps here
+                // Other git checkout steps here
                  }
              }
         
         stage ('Create Package') {
-            Steps {
+            steps {
                 echo ' This Stage Will Compile , test , package  my application'
                 sh 'mvn package'
-                 // Packaging steps here
+                 // Package steps here
                       }
              }
         stage ('Generate Test Report') {
