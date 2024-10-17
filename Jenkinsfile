@@ -29,16 +29,25 @@ pipeline{
          stage ('Create Docker Image ') {
             steps {
                 echo ' This Stage Will create docker Image'
-                sh 'docker build -t keogin/Health care:1.0 . '
+                sh 'docker build -t keogin/healthcare:1.0 . '
                  // Docker Image steps here
                       }
              }
         stage ('Login to Dockerhub ') {
             steps {
                 echo ' This Stage Willlogin to Dockerhub'
-        withCredentials([usernamePassword(credentialsId: 'Dockerlogin', passwordVariable: 'docker-pass', usernameVariable: 'docker-login')]) {
-    // some block
-}
-        
+                withCredentials([usernamePassword(credentialsId: 'Dockerlogin', passwordVariable: 'docker-pass', usernameVariable: 'docker-login')]) {
+                sh 'docker login -u ${Dockerlogin} -p${docker-pass}' 
+                     }
+                }
+           }
+        stage ('Docker push image ') {
+            steps {
+                echo ' This Stage Will push my new Imageto the dockerhub'
+                sh 'docker build -t keogin/healthcare:1.0 . '
+                 // Docker push imagesteps here
+            }
+        }
     }
 }
+        
