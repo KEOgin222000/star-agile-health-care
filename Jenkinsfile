@@ -29,7 +29,7 @@ pipeline{
          stage ('Create Docker Image ') {
             steps {
                 echo ' This Stage Will create docker Image'
-                sh 'docker build -t keogin/healthcare:1.0 . '
+                sh 'sudo docker build -t keogin/healthcare:1.0 .'
                  // Docker Image steps here
                       }
              }
@@ -44,7 +44,7 @@ pipeline{
         stage ('Docker push image ') {
             steps {
                 echo ' This Stage Will push my new Imageto the dockerhub'
-                sh 'docker build -t keogin/healthcare:1.0 . '
+                sh 'sudo docker build -t keogin/healthcare:1.0 . '
                  // Docker push imagesteps here
             }
         }
