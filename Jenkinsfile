@@ -36,15 +36,15 @@ pipeline{
         stage ('Login to Dockerhub ') {
             steps {
                 echo ' This Stage Willlogin to Dockerhub'
-                withCredentials([usernamePassword(credentialsId: 'Dockerlogin', passwordVariable: 'docker-pass', usernameVariable: 'docker-login')]) {
-                sh 'docker login -u ${docker-login} -p${docker-pass}' 
+                withCredentials([usernamePassword(credentialsId: 'dockerloginnew', passwordVariable: 'dockerpass', usernameVariable: 'dockeruser')]) {
+                sh 'docker login -u ${dockeruser} -p${dockerpass}' 
                      }
                 }
            }
         stage ('Docker push image ') {
             steps {
                 echo ' This Stage Will push my new Imageto the dockerhub'
-                sh 'sudo docker build -t keogin/healthcare:1.0 . '
+                sh 'sudo docker build -t keogin/healthcare:1.0 '
                  // Docker push imagesteps here
             }
         }
