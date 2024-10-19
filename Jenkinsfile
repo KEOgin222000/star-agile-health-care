@@ -44,7 +44,7 @@ pipeline{
         stage ('Docker push image ') {
             steps {
                 echo ' This Stage Will push my new Imageto the dockerhub'
-                sh 'docker push -t keogin/healthcare:1.0'
+                sh 'docker push keogin/healthcare:1.0'
                  // Docker push imagesteps here
             }
         }
